@@ -2,6 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import { router } from "expo-router";
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import NewsCard from "@/components/NewsCard";
+import NewsCardStack from "@/components/NewsCardStack";
 
 const Welcome = () => {
   
@@ -10,7 +12,8 @@ const Welcome = () => {
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.container}>
           <View style={styles.textContainer}>
-            <Text style={styles.title}>Market Maven</Text>
+            {/* <Text style={styles.title}>Market Maven</Text> */}
+            <NewsCardStack />
           </View>
         </View>
       </ScrollView>
@@ -21,7 +24,7 @@ const Welcome = () => {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: '#025da5',
+    backgroundColor: '#2C4934',
     height: '100%',
   },
   scrollView: {
@@ -40,13 +43,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    color: '#fff',
+    color: '#8FBC9B',
     fontWeight: 'bold',
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 14,
-    color: '#d1d1d1',
+    color: '#8FBC9B',
     marginTop: 28,
     textAlign: 'center',
   },
@@ -59,7 +62,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: '#fff',
+    color: '#8FBC9B',
     fontSize: 16,
     fontWeight: 'bold',
   },
