@@ -9,14 +9,14 @@ const Welcome = () => {
   
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
+      {/* <ScrollView contentContainerStyle={styles.scrollView}> */}
         <View style={styles.container}>
           <View style={styles.textContainer}>
             {/* <Text style={styles.title}>Market Maven</Text> */}
             <NewsCardStack />
           </View>
         </View>
-      </ScrollView>
+      {/* </ScrollView> */}
       <StatusBar backgroundColor="#025da5" style="light" />
     </SafeAreaView>
   );
