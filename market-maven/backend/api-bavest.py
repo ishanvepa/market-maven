@@ -17,7 +17,7 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-payload = { "symbol": "NVDA" }
+payload = { "symbol": "DJIA" }
 headers = {
     "accept": "application/json",
     "content-type": "application/json",
