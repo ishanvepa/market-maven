@@ -7,7 +7,6 @@ from flask_cors import CORS, cross_origin
 def to_json(obj):
     return json.dumps(obj, default=lambda obj: obj.__dict__)
 
-
 #access api token 
 with open(os.path.dirname(__file__) + '/api-config.json') as api_config_file:
     config = json.load(api_config_file)
@@ -18,24 +17,28 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-payload = { "symbol": "NVDA" }
-url = "https://api.bavest.co/v0/sentiment/social"
+payload = { "symbol": "DJIA" }
 headers = {
     "accept": "application/json",
     "content-type": "application/json",
     "x-api-key": api_key
 }
 
-response = requests.post(url, json=payload, headers=headers)
+response = requests.post("https://api.bavest.co/v0/stock/news", json=payload, headers=headers)
 # Parse the JSON response
 parsed_data = response.json()
 
-@app.route('/get-sentiment', methods=['GET', 'OPTIONS'])
+@app.route('/get-news', methods=['GET', 'OPTIONS'])
 @cross_origin()
-def get_sentiment():
-    return to_json(response.text)
-
-
+def get_news():
+    articles = [] #store teams
+    articles = json.loads(response.text)
+    articles_dom = []
+    for i in range(10):
+        articles_dom.append(articles[i])
+        articles_dom[i]['text'] = (articles_dom[i]['text'][0:100] if len(articles_dom[i]['text']) > 100 else articles_dom[i]['text']) + '...'
+    
+    return to_json(articles_dom)
 
 
 if __name__ == '__main__':

@@ -1,22 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Animated, Dimensions, FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Animated, Dimensions, FlatList, Linking, Pressable, StyleSheet, Text, View} from 'react-native';
 import LineDivider from './LineDivider';
+import { router } from 'expo-router';
 const {width, height} = Dimensions.get("screen");
 
 //include props when api is implemented
-const NewsCard = () => {
+const NewsCard = ({item}) => {
   return (
     <View style={styles.container}>
-        <Text style={styles.headline}>
-            Buffet to Sell Berkshire Hathaway
-        </Text>
-        <Text style={styles.summary}>
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots....
-        </Text>
-        <Text style={styles.author}>
-           - Yahoo Finance
-        </Text>
+        <Pressable onPress={() => {Linking.openURL(item.url)}}>
+            <Text style={styles.headline}>
+                {item.title}
+                {/* Buffet to Sell Berkshire Hathaway */}
+            </Text>
+            <Text style={styles.summary}>
+                {item.text}
+                {/* Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots.... */}
+            </Text>
+            <Text style={styles.author}>
+            {/* - Yahoo Finance */}
+            {item.site}
+            </Text>
+        </Pressable>
         <View style={styles.separator} />
     </View>
   );
