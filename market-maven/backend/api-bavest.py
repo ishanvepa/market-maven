@@ -17,7 +17,15 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-payload = { "symbol": "DJIA" }
+#query stock 
+symbol_query = "GME"
+
+@app.route('/get-symbol-query')
+@cross_origin()
+def get_symbol_query():
+    return symbol_query
+
+payload = { "symbol": symbol_query }
 headers = {
     "accept": "application/json",
     "content-type": "application/json",

@@ -4,15 +4,33 @@ import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Pressable } from 
 import { SafeAreaView } from "react-native-safe-area-context";
 import NewsCard from "@/components/NewsCard";
 import NewsCardStack from "@/components/NewsCardStack";
+import { useState, useEffect } from "react";
+import apiConfig from '../../backend/api-config.json';
+
+const apiUrl = apiConfig.api_url;
 
 const Welcome = () => {
+  const [symbolQuery, setSymbolQuery] = useState<string>('');
+
+  useEffect(() => {
+    fetch(apiUrl + '/get-symbol-query', { method :'GET' })
+    .then(res => res.text())
+    .then(data => {
+      console.log(data);
+      setSymbolQuery(data);
+    })
+    .catch(error => {
+      console.log(error)
+      setSymbolQuery(error)
+    })
+  },[]);
   
   return (
     <SafeAreaView style={styles.safeArea}>
       {/* <ScrollView contentContainerStyle={styles.scrollView}> */}
         <View style={styles.container}>
           <View style={styles.textContainer}>
-            {/* <Text style={styles.title}>Market Maven</Text> */}
+            <Text style={styles.title}>{symbolQuery}</Text>
             <NewsCardStack />
           </View>
         </View>

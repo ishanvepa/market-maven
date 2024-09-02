@@ -5,7 +5,6 @@ const {width, height} = Dimensions.get("screen");
 import apiConfig from '../backend/api-config.json';
 import { router } from 'expo-router';
 const apiUrl = apiConfig.api_url;
-console.log(apiUrl);
 
 const NewsCardStack = () => {
   const [newsCardData, setNewsCardData] = useState([]);
