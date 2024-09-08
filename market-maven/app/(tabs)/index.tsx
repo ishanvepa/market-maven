@@ -4,6 +4,7 @@ import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Pressable } from 
 import { SafeAreaView } from "react-native-safe-area-context";
 import NewsCard from "@/components/NewsCard";
 import NewsCardStack from "@/components/NewsCardStack";
+import StockGraph from "@/components/StockGraph";
 
 const Welcome = () => {
   
@@ -13,7 +14,8 @@ const Welcome = () => {
         <View style={styles.container}>
           <View style={styles.textContainer}>
             {/* <Text style={styles.title}>Market Maven</Text> */}
-            <NewsCardStack />
+            {/* <NewsCardStack /> */}
+            <StockGraph />
           </View>
         </View>
       {/* </ScrollView> */}
