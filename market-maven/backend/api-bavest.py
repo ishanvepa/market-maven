@@ -17,29 +17,53 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-payload = { "symbol": "DJIA" }
+# payload = { "symbol": "DJIA" }
+# headers = {
+#     "accept": "application/json",
+#     "content-type": "application/json",
+#     "x-api-key": api_key
+# }
+
+# response = requests.post("https://api.bavest.co/v0/stock/news", json=payload, headers=headers)
+# # Parse the JSON response
+# parsed_data = response.json()
+
+# @app.route('/get-news', methods=['GET', 'OPTIONS'])
+# @cross_origin()
+# def get_news():
+#     articles = [] #store teams
+#     articles = json.loads(response.text)
+#     articles_dom = []
+#     for i in range(10):
+#         articles_dom.append(articles[i])
+#         articles_dom[i]['text'] = (articles_dom[i]['text'][0:100] if len(articles_dom[i]['text']) > 100 else articles_dom[i]['text']) + '...'
+    
+#     return to_json(articles_dom)
+
+
+payload = { "portfolio_items": [
+        {
+            "amount": "1",
+            "symbol": "DJIA"
+        }
+    ],
+    "currency": "USD"}
 headers = {
     "accept": "application/json",
     "content-type": "application/json",
     "x-api-key": api_key
 }
 
-response = requests.post("https://api.bavest.co/v0/stock/news", json=payload, headers=headers)
-# Parse the JSON response
+response = requests.post("https://api.bavest.co/v0/portfolio/price", json=payload, headers=headers)
+
 parsed_data = response.json()
 
-@app.route('/get-news', methods=['GET', 'OPTIONS'])
+@app.route('/get-price', methods=['GET', 'OPTIONS'])
 @cross_origin()
-def get_news():
-    articles = [] #store teams
-    articles = json.loads(response.text)
-    articles_dom = []
-    for i in range(10):
-        articles_dom.append(articles[i])
-        articles_dom[i]['text'] = (articles_dom[i]['text'][0:100] if len(articles_dom[i]['text']) > 100 else articles_dom[i]['text']) + '...'
+def get_price():
+    price = json.loads(response.text)
     
-    return to_json(articles_dom)
-
+    return to_json(price)
 
 if __name__ == '__main__':
     # app.run(debug=True)
