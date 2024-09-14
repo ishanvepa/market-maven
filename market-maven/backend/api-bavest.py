@@ -1,6 +1,8 @@
 import os
 import requests
 import json
+import time
+import datetime
 from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 
@@ -40,27 +42,31 @@ app.config['CORS_HEADERS'] = 'Content-Type'
     
 #     return to_json(articles_dom)
 
+curr_time = int(time.time())
+prev_time = int(time.time()) - 115200
+freq = "1"
 
-payload = { "portfolio_items": [
-        {
-            "amount": "1",
-            "symbol": "DJIA"
-        }
-    ],
-    "currency": "USD"}
+payload = {
+    "symbol": "AAPL",
+    "from": prev_time,
+    "to": curr_time,
+    "resolution": freq,
+    "currency": "USD"
+  }
 headers = {
     "accept": "application/json",
     "content-type": "application/json",
     "x-api-key": api_key
 }
 
-response = requests.post("https://api.bavest.co/v0/portfolio/price", json=payload, headers=headers)
+response = requests.post("https://api.bavest.co/v0/candle", json=payload, headers=headers)
 
 parsed_data = response.json()
 
-@app.route('/get-price', methods=['GET', 'OPTIONS'])
+@app.route('/get-prices', methods=['GET', 'OPTIONS'])
 @cross_origin()
 def get_price():
+
     price = json.loads(response.text)
     
     return to_json(price)
